@@ -63,7 +63,24 @@ public class Game {
                     case "a3","3a": 
                         if (tab[0][2]<3){break;}
                         tab[0][2]=p; check=true; break;
-
+                    case "b1","1b": 
+                        if (tab[0][0]<3){break;}
+                        tab[1][0]=p; check=true; break;
+                    case "b2","2b": 
+                        if (tab[0][1]<3){break;}
+                        tab[1][1]=p; check=true; break;
+                    case "b3","3b": 
+                        if (tab[1][2]<3){break;}
+                        tab[1][2]=p; check=true; break;
+                    case "c1","1c": 
+                        if (tab[2][0]<3){break;}
+                        tab[2][0]=p; check=true; break;
+                    case "c2","2c": 
+                        if (tab[2][1]<3){break;}
+                        tab[2][1]=p; check=true; break;
+                    case "c3","3c": 
+                        if (tab[2][2]<3){break;}
+                        tab[2][2]=p; check=true; break;
                 }
             
             }
