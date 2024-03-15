@@ -53,7 +53,8 @@ public class Game {
         while(true){
             boolean check = false;
             while (!check){
-                switch (in.nextLine().toLowerCase()){
+                String s=in.nextLine().toLowerCase();
+                switch (s){
                     case "a1","1a": 
                         if (tab[0][0]<3){break;}
                         tab[0][0]=p; check=true; break;
