@@ -4,20 +4,27 @@ public class Node {
     private boolean bomb;
     private int nearBombs;
 
-    public Node(Node[]edge, boolean bomb){
-        this.edge=edge;
-        this.bomb=bomb;
-        countBomb();
-    }
+    public Node(){
+        hidden = true;
+        bomb = false;
+        nearBombs = 0;
+    }    
+    
+    public int getNearBombs(){return nearBombs;}
+    public boolean isBomb(){return bomb;}
+    public boolean isHidden(){return hidden;}
+    public void forceReveal(){hidden = false;}
 
     public boolean reveal(){
-        if(isBomb()){return true;}
+        if(isBomb()){hidden = false; return true;}
         if(nearBombs>0||!isHidden()){return false;}
+        hidden = false;
         for (Node n : edge) {
             n.reveal();
         }
         return false;
     }
+
 
     public void toggleBomb(){
         bomb=!bomb;
@@ -31,6 +38,10 @@ public class Node {
         else{nearBombs--;}
     }
 
+    public void setEdges(Node[] e){
+        this.edge = e;
+    }
+
     /*private void countBomb(){
         nearBombs = 0;
         for (Node n : edge) {
@@ -38,7 +49,13 @@ public class Node {
         }
     }*/
 
-    public int getNearBombs(){return nearBombs;}
-    public boolean isBomb(){return bomb;}
-    public boolean isHidden(){return hidden;}
+    @Override
+    public String toString() {
+        //if(isHidden()){return "+";}
+        if (isBomb()){return "*";}
+        if(nearBombs==0){return " ";}
+        return ""+nearBombs;
+    }
+
+
 }
