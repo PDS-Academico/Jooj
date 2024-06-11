@@ -69,13 +69,13 @@ public class Board {
     @Override
     public String toString() {
         String s = "";
-        String aux = " ";
+        String aux = "---";
         for (int i = 0; i < b[0].length; i++) {
-            aux=aux+"- ";
+            aux=aux+"--";
         }
         s=s+aux+"\n";
         for (Node[] nodes : b) {
-            s=s+"|";
+            s=s+"| ";
             for (Node node : nodes) {
                 s= s+ node + " ";
             }
