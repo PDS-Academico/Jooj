@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Board {
     private Node[][]b;
@@ -24,9 +24,7 @@ public class Board {
         init();
     }
 
-
     private void init(){
-        
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
                 b[i][j] = new Node();
@@ -53,6 +51,10 @@ public class Board {
         for (int i = 0; i < bombcount; i++) {
             placeBomb();
         }
+        System.out.println(toString());
+        Scanner in = new Scanner(System.in);
+        play(in);
+        in.close();
     }
 
     private void placeBomb(){
@@ -66,21 +68,39 @@ public class Board {
         b[yr][xr].toggleBomb();
     }
 
+    private void play(Scanner in){
+        int i;
+        int j;
+        boolean t = false;
+        j = in.nextInt()-1;
+        in.nextLine();
+        i = in.nextInt()-1;
+        if (b[i][j].isBomb()){b[i][j].toggleBomb(); placeBomb();}
+        int n = b[i][j].getNearBombs();
+        b[i][j].firstplay();
+        while(n>0){placeBomb();n--;}
+        t = b[i][j].reveal();
+        System.out.println(toString());
+        while(!t){
+            j = in.nextInt()-1;
+            in.nextLine();
+            i = in.nextInt()-1;
+            t = b[i][j].reveal();
+            System.out.println(toString());
+        }
+    }
+
+
     @Override
     public String toString() {
         String s = "";
-        String aux = "---";
-        for (int i = 0; i < b[0].length; i++) {
-            aux=aux+"--";
-        }
-        s=s+aux+"\n";
         for (Node[] nodes : b) {
-            s=s+"| ";
-            for (Node node : nodes) {
-                s= s+ node + " ";
+            s=s+"|";
+            for (int i = 0; i < nodes.length-1; i++) {
+                s= s+ nodes[i] + " ";
             }
-            s= s + "|\n";
+            s= s + nodes[nodes.length-1] + "|\n";
         }
-        return s+aux;
+        return s;
     }
 }

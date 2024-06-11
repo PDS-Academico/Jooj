@@ -17,12 +17,18 @@ public class Node {
 
     public boolean reveal(){
         if(isBomb()){hidden = false; return true;}
-        if(nearBombs>0||!isHidden()){return false;}
+        if(nearBombs>0||!isHidden()){hidden = false; return false;}
         hidden = false;
         for (Node n : edge) {
             n.reveal();
         }
         return false;
+    }
+
+    public void firstplay(){
+        for (Node n : edge) {
+            if(n.isBomb()){n.toggleBomb();}
+        }
     }
 
 
@@ -51,7 +57,7 @@ public class Node {
 
     @Override
     public String toString() {
-        //if(isHidden()){return "+";}
+        if(isHidden()){return "+";}
         if (isBomb()){return "*";}
         if(nearBombs==0){return " ";}
         return ""+nearBombs;
